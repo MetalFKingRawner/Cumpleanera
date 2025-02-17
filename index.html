@@ -354,8 +354,8 @@
             <div class="footer-seccion">
                 <h3>Contacto</h3>
                 <div class="redes-sociales">
-                    <a href="#" class="footer-enlace">📷 Instagram</a>
-                    <a href="#" class="footer-enlace">📘 Facebook</a>
+                    <a href="https://www.instagram.com/dann.ra_?igsh=MWhjZWNwOGJncGFqbg==" class="footer-enlace">📷 Instagram</a>
+                    <a href="https://www.facebook.com/dannwatters" class="footer-enlace">📘 Facebook</a>
                 </div>
             </div>
             
@@ -368,6 +368,15 @@
     </footer>
 
     <script>
+
+        // Obtener el botón por su clase
+        const botonFelicitaciones = document.querySelector('.btn-felicitaciones');
+
+        // Añadir evento de clic al botón
+        botonFelicitaciones.addEventListener('click', function () {
+            window.location.href = 'formulario.html'; // Redireccionar a formulario.html
+        });
+
         // Carrusel Automático
         const carrusel = document.querySelector('.carrusel-interno');
         let indice = 0;
