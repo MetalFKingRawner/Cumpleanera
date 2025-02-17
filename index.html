@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Amor! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fff0f5;
+            overflow-x: hidden;
+        }
+
+        /* Barra de Navegación */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-enlace {
+            color: #d6336c;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-enlace:hover {
+            background: #ff69b4;
+            color: white;
+        }
+
+        /* Animación de globos */
+        @keyframes flotar {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        .globo {
+            position: fixed;
+            width: 60px;
+            animation: flotar 8s linear infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        /* Header Animado */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .foto-cumpleaniera {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #ff69b4;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(255,105,180,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .foto-cumpleaniera:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #d6336c;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-felicitaciones {
+            background: #d6336c;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-felicitaciones:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(214,51,108,0.4);
+        }
+
+        .titulo-galería {
+            font-family: 'Pacifico', cursive;
+            color: #ffffff;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(113, 0, 0, 0.5);
+            padding: 0 20px;
+        }
+
+
+        /* Galería Carrusel */
+        .galeria {
+            padding: 80px 20px;
+            background: linear-gradient(45deg, #ffb6c1, #ff69b4);
+            clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+            margin: 50px 0;
+        }
+
+        .carrusel-contenedor {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .carrusel-interno {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 15px; /* Espacio entre imágenes */
+        }
+
+        .carrusel-item {
+            min-width: calc(33.33% - 10px); /* 3 columnas con espacio */
+            height: 400px;
+            position: relative;
+            flex: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .carrusel-item:hover {
+            transform: scale(1.02);
+        }
+
+        .carrusel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Mensaje de Felicitación */
+        .mensaje-especial {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .mensaje-especial p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #d6336c;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #ff69b4;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-contenido {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-seccion h3 {
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 15px;
+        }
+
+        .footer-enlace {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-enlace:hover {
+            opacity: 0.8;
+        }
+
+        .redes-sociales {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav>
+        <div class="nav-contenedor">
+            <a href="#inicio" class="nav-enlace">INICIO</a>
+            <a href="felicitaciones.html" class="nav-enlace">FELICITACIONES</a>
+            <a href="#cumple" class="nav-enlace">FELIZ CUMPLEAÑOS</a>
+            <a href="#tickets" class="nav-enlace">ZONA TICKETS</a>
+        </div>
+    </nav>
+
+    <!-- Globo Animado -->
+    <img src="globo.png" class="globo" style="left: 10%; animation-delay: 1s">
+    <img src="globo.png" class="globo" style="left: 25%; animation-delay: 2s">
+    <img src="globo.png" class="globo" style="left: 40%; animation-delay: 3s">
+    <img src="globo.png" class="globo" style="left: 55%; animation-delay: 4s">
+    <img src="globo.png" class="globo" style="left: 70%; animation-delay: 5s">
+    <img src="globo.png" class="globo" style="left: 85%; animation-delay: 6s">
+    <img src="globo.png" class="globo" style="left: 10%; animation-delay: 3.5s">
+    <img src="globo.png" class="globo" style="left: 25%; animation-delay: 4.5s">
+    <img src="globo.png" class="globo" style="left: 40%; animation-delay: 6.5s">
+    <img src="globo.png" class="globo" style="left: 55%; animation-delay: 8.5s">
+    <img src="globo.png" class="globo" style="left: 70%; animation-delay: 10.5s">
+    <img src="globo.png" class="globo" style="left: 85%; animation-delay: 12.5s">
+
+    <!-- Sección Hero -->
+    <section class="hero" id="inicio">
+        <img src="images/perfil.jpg" alt="Cumpleañera" class="foto-cumpleaniera">
+        <h1>¡Felices 28 años mi amor! 🎂</h1>
+        <button class="btn-felicitaciones">Felicitaciones ;)</button>
+    </section>
+
+    <!-- Galería Carrusel -->
+    <section class="galeria" id="cumple">
+        <h2 class="titulo-galería">Admirad una diosa ✨</h2>
+        <div class="carrusel-contenedor">
+            <div class="carrusel-interno">
+                <div class="carrusel-item">
+                    <img src="images/dann8.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/Screenshot_2025-02-14-01-58-54-22_1c337646f29875672b5a61192b9010f9.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann12.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/Screenshot_2025-02-14-01-57-44-72_1c337646f29875672b5a61192b9010f9.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann13.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann15.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann6.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/Screenshot_20200702_094058_com.whatsapp.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/Screenshot_2025-02-14-01-59-10-16_1c337646f29875672b5a61192b9010f9.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann14.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG-20241107-WA0035.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/Screenshot_20200701_235744_com.whatsapp.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann9.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann7.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/Screenshot_20200430_123215.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann5.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann4.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann3.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann2.jpg" alt="Momento especial 3">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann11.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/dann1.jpg" alt="Momento especial 3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mensaje Especial -->
+    <section class="mensaje-especial" id="felicitaciones">
+        <p>En este día tan especial, quiero recordarte lo increíble que eres. Cada momento a tu lado es un regalo del universo y hoy celebramos la maravillosa persona que eres. ¡Que este nuevo año de vida esté lleno de amor, sueños cumplidos y momentos inolvidables! Te amo más allá de las palabras. ❤️</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <h3>Navegación</h3>
+                <a href="#inicio" class="footer-enlace">Inicio</a>
+                <a href="felicitaciones.html" class="footer-enlace">Felicitaciones</a>
+                <a href="#cumple" class="footer-enlace">Feliz Cumpleaños</a>
+                <a href="#tickets" class="footer-enlace">Zona Tickets</a>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Contacto</h3>
+                <div class="redes-sociales">
+                    <a href="#" class="footer-enlace">📷 Instagram</a>
+                    <a href="#" class="footer-enlace">📘 Facebook</a>
+                </div>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Derechos</h3>
+                <p>© 2025 Feliz cumpleaños</p>
+                <p>Creado con amor por Victor ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carrusel Automático
+        const carrusel = document.querySelector('.carrusel-interno');
+        let indice = 0;
+        
+        function siguienteSlide() {
+            indice = (indice + 1) % 7;
+            carrusel.style.transform = `translateX(-${indice * 100}%)`;
+        }
+        
+        setInterval(siguienteSlide, 5000);
+
+        // Animación de Confeti
+        function crearConfeti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+            for(let i = 0; i < 50; i++) {
+                const confeti = document.createElement('div');
+                confeti.className = 'confeti';
+                confeti.style.left = Math.random() * 100 + 'vw';
+                confeti.style.animationDelay = Math.random() * 2 + 's';
+                confeti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confeti);
+                
+                setTimeout(() => confeti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>

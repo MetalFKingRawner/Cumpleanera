@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Felicitaciones Recibidas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fff0f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación (igual que en otras páginas) */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-enlace {
+            color: #d6336c;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-enlace:hover {
+            background: #ff69b4;
+            color: white;
+        }
+
+        /* Contenedor Principal */
+        .contenedor-felicitaciones {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 20px;
+            text-align: center; /* Centrar el contenido interno */
+        }
+
+        .titulo-principal {
+            font-family: 'Pacifico', cursive;
+            color: #d6336c;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Grid de Felicitaciones */
+        .grid-felicitaciones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* Tarjeta de Felicitación */
+        .tarjeta {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-10px);
+        }
+
+        .tarjeta-imagen {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tarjeta-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta:hover .tarjeta-imagen img {
+            transform: scale(1.1);
+        }
+
+        .tarjeta-contenido {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tarjeta-titulo {
+            font-family: 'Pacifico', cursive;
+            color: #d6336c;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .tarjeta-mensaje {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tarjeta-autor {
+            color: #ff69b4;
+            font-weight: 600;
+            text-align: right;
+            margin-top: auto;
+        }
+
+        /* Efectos Especiales */
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tarjeta {
+            animation: aparecer 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .titulo-principal {
+                font-size: 2.5rem;
+            }
+            
+            .grid-felicitaciones {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Estilos para el botón de enviar felicitación */
+        .boton-felicitacion {
+            display: inline-block;
+            background-color: #d6336c;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .boton-felicitacion:hover {
+            background-color: #ff69b4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .boton-felicitacion:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #ff69b4;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-contenido {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-seccion h3 {
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 15px;
+        }
+
+        .footer-enlace {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-enlace:hover {
+            opacity: 0.8;
+        }
+
+        .redes-sociales {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav>
+        <div class="nav-contenedor">
+            <a href="index.html" class="nav-enlace">INICIO</a>
+            <a href="#felicitaciones" class="nav-enlace">FELICITACIONES</a>
+            <a href="#cumple" class="nav-enlace">FELIZ CUMPLEAÑOS</a>
+            <a href="#tickets" class="nav-enlace">ZONA TICKETS</a>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="contenedor-felicitaciones">
+        <h1 class="titulo-principal">Mensajes de Amor 💌</h1>
+        
+        <!-- Botón para enviar felicitación -->
+        <a href="formulario.html" class="boton-felicitacion">
+            Manda tu felicitación aquí 💖
+        </a>
+
+        <div class="grid-felicitaciones" id="gridFelicitaciones">
+            <!-- Las tarjetas se insertarán aquí mediante JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <h3>Navegación</h3>
+                <a href="index.html" class="footer-enlace">Inicio</a>
+                <a href="felicitaciones.html" class="footer-enlace">Felicitaciones</a>
+                <a href="#cumple" class="footer-enlace">Feliz Cumpleaños</a>
+                <a href="#tickets" class="footer-enlace">Zona Tickets</a>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Contacto</h3>
+                <div class="redes-sociales">
+                    <a href="https://www.instagram.com/dann.ra_?igsh=MWhjZWNwOGJncGFqbg==" class="footer-enlace">📷 Instagram</a>
+                    <a href="https://www.facebook.com/dannwatters" class="footer-enlace">📘 Facebook</a>
+                </div>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Derechos</h3>
+                <p>© 2025 Feliz cumpleaños</p>
+                <p>Creado con amor por Victor ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configuración de Airtable
+        const API_KEY = 'patUXxpRoebhTNaEp.dc35f0ac9fe2a786cc9ae3619305fd2e90fb358215d4e0890741dc3b4fd3793b';
+        const BASE_ID = 'appybRqT5lfuvwyid';
+        const TABLE_NAME = 'Mensajes';
+
+        // Función para obtener las felicitaciones
+        async function cargarFelicitaciones() {
+            try {
+                const response = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`
+                    }
+                });
+                
+                const data = await response.json();
+                mostrarFelicitaciones(data.records);
+            } catch (error) {
+                console.error('Error al cargar felicitaciones:', error);
+                mostrarError();
+            }
+        }
+
+        // Función para mostrar las felicitaciones
+        function mostrarFelicitaciones(felicitaciones) {
+            const grid = document.getElementById('gridFelicitaciones');
+            
+            if(felicitaciones.length === 0) {
+                grid.innerHTML = `<p class="mensaje-vacio">¡Sé el primero en dejar un mensaje! 💖</p>`;
+                return;
+            }
+
+            grid.innerHTML = felicitaciones.map((felicitacion, index) => `
+                <div class="tarjeta" style="animation-delay: ${index * 0.1}s">
+                    ${felicitacion.fields.Imagen ? `
+                    <div class="tarjeta-imagen">
+                        <img src="${felicitacion.fields.Imagen[0].url}" alt="Mensaje de ${felicitacion.fields.Nombre}">
+                    </div>` : ''}
+                    <div class="tarjeta-contenido">
+                        <h3 class="tarjeta-titulo">${felicitacion.fields.Asunto || '¡Feliz Cumpleaños!'}</h3>
+                        <p class="tarjeta-mensaje">${felicitacion.fields.Mensaje}</p>
+                        <p class="tarjeta-autor">- ${felicitacion.fields.Nombre}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Función para mostrar error
+        function mostrarError() {
+            const grid = document.getElementById('gridFelicitaciones');
+            grid.innerHTML = `<p class="mensaje-error">❌ Error al cargar los mensajes. Intenta recargar la página.</p>`;
+        }
+
+        // Cargar datos al iniciar
+        document.addEventListener('DOMContentLoaded', cargarFelicitaciones);
+
+        // Estilos dinámicos para mensajes
+        const style = document.createElement('style');
+        style.textContent = `
+            .mensaje-vacio, .mensaje-error {
+                text-align: center;
+                font-size: 1.2rem;
+                color: #d6336c;
+                padding: 30px;
+                grid-column: 1 / -1;
+            }
+            
+            .mensaje-error {
+                color: #ff4444;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
