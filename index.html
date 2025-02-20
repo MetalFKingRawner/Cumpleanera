@@ -237,8 +237,8 @@
         <div class="nav-contenedor">
             <a href="#inicio" class="nav-enlace">INICIO</a>
             <a href="felicitaciones.html" class="nav-enlace">FELICITACIONES</a>
-            <a href="#cumple" class="nav-enlace">FELIZ CUMPLEAÑOS</a>
-            <a href="#tickets" class="nav-enlace">ZONA TICKETS</a>
+            <a href="carta.html" class="nav-enlace">FELIZ CUMPLEAÑOS</a>
+            <a href="tickets.html" class="nav-enlace">ZONA TICKETS</a>
         </div>
     </nav>
 
@@ -273,6 +273,24 @@
                 </div>
                 <div class="carrusel-item">
                     <img src="images/Screenshot_2025-02-14-01-58-54-22_1c337646f29875672b5a61192b9010f9.jpg" alt="Momento especial 1">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG20250219152948.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG20250219153053.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG20250219153132.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG20250219153203.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG20250219153240.jpg" alt="Momento especial 2">
+                </div>
+                <div class="carrusel-item">
+                    <img src="images/IMG20250219153308.jpg" alt="Momento especial 2">
                 </div>
                 <div class="carrusel-item">
                     <img src="images/dann12.jpg" alt="Momento especial 2">
@@ -347,8 +365,8 @@
                 <h3>Navegación</h3>
                 <a href="#inicio" class="footer-enlace">Inicio</a>
                 <a href="felicitaciones.html" class="footer-enlace">Felicitaciones</a>
-                <a href="#cumple" class="footer-enlace">Feliz Cumpleaños</a>
-                <a href="#tickets" class="footer-enlace">Zona Tickets</a>
+                <a href="carta.html" class="footer-enlace">Feliz Cumpleaños</a>
+                <a href="tickets.html" class="footer-enlace">Zona Tickets</a>
             </div>
             
             <div class="footer-seccion">
@@ -382,7 +400,7 @@
         let indice = 0;
         
         function siguienteSlide() {
-            indice = (indice + 1) % 7;
+            indice = (indice + 1) % 9;
             carrusel.style.transform = `translateX(-${indice * 100}%)`;
         }
         

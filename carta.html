@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Amor para Mi Reina 👑</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=EB+Garamond&display=swap" rel="stylesheet">
+    <style>
+
+        /* Barra de Navegación (consistente con otras páginas) */
+        nav {
+            background: rgba(255,255,255,0.9);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-enlace {
+            color: #d6336c;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Estilos Base */
+        body {
+            margin: 0;
+            background: #e6f3e6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            z-index: 0; /* Fondo base */
+        }
+
+        .jardin-virtual {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0; /* Debajo de la rosa pero sobre el fondo */
+        }
+
+        .pergamino {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff5e6;
+            padding: 100px 40px; /* Aumentar padding para espacio */
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            transform: rotate(1deg);
+            border: 15px solid transparent;
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="%237d5e3c" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>') 30 stretch;
+            z-index: 1; /* Texto encima de todo */
+        }
+
+
+        /* Tipografía Especial */
+        .titulo-floral {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 2.8rem;
+            color: #b85757;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .titulo-floral::before {
+            content: '';
+            position: absolute;
+            width: 75%;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10"><path fill="%237d5e3c" d="M0 5 Q25 0 50 5 T100 5" /></svg>') repeat-x;
+            bottom: -15px;
+        }
+
+        .texto-carta {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #7b0c0c;
+            text-align: justify;
+            position: relative;
+            z-index: 2; /* Encima de la rosa */
+        }
+
+        @keyframes bloom2 {
+            50% { transform: rotate(-90deg); top: 400px; left: 150px; }
+            100% { transform: rotate(-60deg); top: 615px; left: 100px; }
+        }
+
+        @keyframes bloom3 { 100% { transform: rotate(50deg); } }
+        @keyframes bloom4 { 100% { transform: rotate(-25deg); } }
+        @keyframes bloom5 { 100% { transform: rotate(25deg); } }
+        @keyframes bloom6 { 100% { transform: rotate(-10deg); } }
+        @keyframes bloom7 { 100% { transform: rotate(10deg); } }
+        @keyframes glowing {
+            50% { background: #d7365f; box-shadow: 0 0 60px rgba(245,148,184,1); }
+        }
+        @keyframes falling {
+            20% { top: 335px; background: #9d193b; }
+            100% { top: 335px; opacity: 0; }
+        }
+
+        /* Elementos Interactivos */
+        .flor-animada {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff69b4" d="M12 2C15 5 15 11 12 13.5 9 11 9 5 12 2z"/><path fill="%234CAF50" d="M12 5l-2 4h4z"/></svg>');
+            animation: caer 8s linear infinite;
+            cursor: pointer;
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .flor-interactiva {
+            position: absolute;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+        .flor-interactiva:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        /* Efecto de brote al hacer scroll */
+        .brote {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: #ff69b4;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-contenido {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-seccion h3 {
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 15px;
+        }
+
+        .footer-enlace {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-enlace:hover {
+            opacity: 0.8;
+        }
+
+        .redes-sociales {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Debajo del texto */
+        }
+
+        .glass {
+            position: relative; /* Necesario para posicionar elementos hijos */
+            height: 800px;
+            width: 600px;
+            background: #d9d9d9;
+            border-radius: 300px 300px 0px 0px;
+            overflow: hidden; /* Contener elementos que sobresalgan */
+        }
+
+        .glass:before {
+            content: "";
+            height: 40px;
+            width: 40px;
+            transform-origin: center;
+            border: 25px solid #122139;
+            border-radius: 100%;
+            position: absolute;
+            left: 256px;
+            top: -74px;
+        }
+
+        .glass:after {
+            content: "";
+            position: absolute;
+            height: 15px;
+            width: 600px;
+            background: #a52a2a;
+            top: 100%;
+            left: 0%;
+        }
+
+        .petals>div,
+        .leaves>div,
+        .thorns>div,
+        .deadPetals>div {
+            position: absolute;
+            transform: translate(-50%, -50%); /* Centrado relativo */
+        }
+
+        .shine {
+            width: 26px;
+            height: 330px;
+            background: white;
+            opacity: 0.2;
+            position: absolute;
+            left: 85%;
+            top: 30%;
+            transform: rotate(30deg);
+            border-radius: 100px;
+            z-index: 2;
+        }
+
+        .shine:before {
+            content: "";
+            width: 26px;
+            height: 40px;
+            position: absolute;
+            background: white;
+            top: 365px;
+            border-radius: 100px;
+        }
+
+        .petals>div {
+            position: absolute;
+            background: #d52d58;
+            width: 85px;
+            height: 120px;
+            top: 200px;
+            transition: all 0.5s ease-out;
+        }
+
+        .petals>div,
+        .leaves>div {
+            transform: scale(0.8) translate(-50%, -50%);
+        }
+
+        .petals>div:nth-child(1) {
+            border-radius: 15px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, 1);
+            left: 50%;
+            top: 30%;
+            background: #d52d58;
+        }
+
+        .petals>div:nth-child(2),
+        .petals>div:nth-child(4),
+        .petals>div:nth-child(6) {
+            background: #b81b43;
+            left: 41%;
+            border-radius: 0px 50px 0px 50px;
+            transform-origin: bottom right;
+        }
+
+        .petals>div:nth-child(3),
+        .petals>div:nth-child(5),
+        .petals>div:nth-child(7) {
+            background: #b81b43;
+            left: 50%;
+            border-radius: 50px 0px 50px 0px;
+            transform-origin: bottom left;
+        }
+
+        .petals>div:nth-child(2) {
+            z-index: 5;
+            background: #ab1a3f;
+            top: 218px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom2 3s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(3) {
+            z-index: 4;
+            background: #ab1a3f;
+            top: 220px;
+            left: 50%;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom3 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(4) {
+            z-index: 3;
+            background: #b81b43;
+            top: 213px;
+            left: 40%;
+            height: 135px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom4 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(5) {
+            z-index: 2;
+            background: #b81b43;
+            top: 200px;
+            left: 50%;
+            height: 135px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom5 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(6) {
+            z-index: 1;
+            background: #c9204b;
+            top: 200px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .3);
+            animation: bloom6 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(7) {
+            z-index: 0;
+            background: #c9204b;
+            top: 200px;
+            height: 130px;
+            left: 50%;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .3);
+            animation: bloom7 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .deadPetals>div {
+            position: absolute;
+            background: #d52d58;
+            width: 20px;
+            height: 15px;
+            top: 200px;
+            border-radius: 0px 30px 0px 30px;
+            box-shadow: 0px 0px 30px rgba(245, 148, 184, .5);
+            transition: all 0.5s ease-out;
+        }
+
+        .deadPetals>div:nth-child(1) {
+            left: 119229959987px;
+            transform: rotate(-30deg);
+            animation: falling 20s 4s ease-in-out infinite;
+        }
+
+        .deadPetals>div:nth-child(2) {
+            left: 26331084746px;
+            transform: rotate(-30deg);
+            animation: falling 20s 8s ease-in-out infinite;
+        }
+
+        .deadPetals>div:nth-child(3) {
+            left: 129759500363px;
+            transform: rotate(-30deg);
+            animation: falling 20s 12s ease-in-out infinite;
+        }
+
+        .deadPetals>div:nth-child(4) {
+            left: 99323149959px;
+            transform: rotate(-30deg);
+            animation: falling 20s 16s ease-in-out infinite;
+        }
+
+        .leaves>div:nth-last-child(1) {
+            position: absolute;
+            width: 55px;
+            height: 30px;
+            background: #338f37;
+            left: 50%;
+            top: 40.5%;
+            border-radius: 100px;
+        }
+
+        .leaves>div:nth-child(1) {
+            position: absolute;
+            width: 15px;
+            height: 720px;
+            background: #054c05;
+            top: 430px;
+            left: 305px;
+            border-radius: 0 0 100px 100px;
+        }
+
+        .leaves>div:nth-child(2) {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            top: 53px;
+            border-radius: 10px 80px 40px 80px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(-30deg);
+            top: 412px;
+            left: 254px;
+            box-shadow: inset 10px 10px #066406;
+        }
+
+        .leaves>div:nth-child(3) {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            top: 53px;
+            border-radius: 80px 1px 80px 40px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(30deg);
+            top: 360px;
+            left: 300px;
+            box-shadow: inset -10px 10px #066406;
+        }
+
+        .thorns>div {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 200px;
+        }
+
+        .thorns>div:nth-child(odd) {
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid #054c05;
+            left: 315px;
+        }
+
+        .thorns>div:nth-child(even) {
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid #054c05;
+            left: 285px;
+        }
+
+        .thorns>div:nth-child(1) {
+            left: 52%;
+            top: 50%;
+        }
+
+        .thorns>div:nth-child(2) {
+            top: 390px;
+            left: 50%;
+        }
+
+        .thorns>div:nth-child(3) {
+            top: 470px;
+            left: 52%;
+        }
+
+        .thorns>div:nth-child(4) {
+            top: 525px;
+            left: 50%;
+        }
+
+        @keyframes bloom2 {
+            50% {
+                transform: rotate(-90deg);
+                top: 400px;
+                left: 150px;
+            }
+
+            100% {
+                transform: rotate(-60deg);
+                top: 615px;
+                left: 100px;
+                background: #ab1a3f;
+                box-shadow: 0px 0px 0px rgba(245, 148, 184, 0);
+            }
+        }
+
+        @keyframes bloom3 {
+            100% {
+                transform: rotate(30deg);
+            }
+        }
+
+        @keyframes bloom4 {
+            100% {
+                transform: rotate(-15deg);
+            }
+        }
+
+        @keyframes bloom5 {
+            100% {
+                transform: rotate(15deg);
+            }
+        }
+
+        @keyframes bloom6 {
+            100% {
+                transform: rotate(-5deg);
+            }
+        }
+
+        @keyframes bloom7 {
+            100% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes glowing {
+            50% {
+                background: #d7365f;
+                box-shadow: 0px 0px 60px rgba(245, 148, 184, 1);
+            }
+        }
+
+        @keyframes falling {
+            20% {
+                top: 335px;
+                background: #9d193b;
+                box-shadow: 0px 0px 0px rgba(245, 148, 184, 0);
+            }
+
+            100% {
+                top: 335px;
+                opacity: 0;
+            }
+        }
+
+        .texto {
+            top: 50%;
+            color: white;
+            font-size: 35px;
+            position: absolute;
+            left: 10%;
+        }
+
+        /* Fotos decorativas */
+        .decorativo-foto {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            border: 8px solid #fff5e6;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            transform: rotate(-3deg);
+            transition: all 0.5s ease;
+            z-index: 1;
+            object-fit: cover;
+        }
+
+        .decorativo-foto:hover {
+            transform: rotate(-1deg) scale(1.05);
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        /* Posiciones específicas */
+        .foto-superior-izq {
+            left: -150px;
+            top: -100px;
+            transform: rotate(-5deg);
+        }
+
+        .foto-centro-der {
+            right: -150px;
+            top: 50%;
+            transform: translateY(-50%) rotate(3deg);
+        }
+
+        .foto-inferior-izq {
+            left: -180px;
+            bottom: -120px;
+            transform: rotate(5deg);
+        }
+
+        /* Efecto vintage */
+        .decorativo-foto::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(198, 155, 109, 0.1);
+            mix-blend-mode: multiply;
+        }
+
+        /* Asegurar visibilidad en móviles */
+        @media (max-width: 1200px) {
+            .decorativo-foto {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <nav>
+        <div class="nav-contenedor">
+            <a href="index.html" class="nav-enlace">INICIO</a>
+            <a href="felicitaciones.html" class="nav-enlace">FELICITACIONES</a>
+            <a href="carta.html" class="nav-enlace">FELIZ CUMPLEAÑOS</a>
+            <a href="tickets.html" class="nav-enlace">ZONA TICKETS</a>
+        </div>
+    </nav>
+
+    <div class="jardin-virtual" id="jardin"></div>
+
+    <div class="pergamino">
+        <div class="sello-cera"></div>
+        <h1 class="titulo-floral">Para el amor de mi vida</h1>
+        
+        <!-- Fotos decorativas -->
+        <img src="images/dann1.jpg" class="decorativo-foto foto-superior-izq" alt="Decoración floral">
+        <img src="ima1.JPG" class="decorativo-foto foto-centro-der" alt="Detalle vintage">
+        <img src="images/IMG_9792.JPG" class="decorativo-foto foto-inferior-izq" alt="Acuarela decorativa">
+        
+        <div class="texto-carta">
+            <p class="brote">Querida Daniela,</p>
+
+            <p class="brote">Hoy es un día especial, porque en esta fecha llegó al mundo la persona que ilumina mis días y llena mi corazón de amor. No hay palabras suficientes para describir cuánto significas para mí, pero quiero intentarlo con estas líneas.</p>
+            <p class="brote">Desde que estás en mi vida, cada momento se ha vuelto más bonito. Tu sonrisa es mi refugio, tu voz mi melodía favorita y tu abrazo el hogar donde siempre quiero estar. Admiro tu ternura, tu fortaleza y la manera en que haces que todo a tu alrededor brille con más intensidad.</p>
+            <p class="brote">Hoy quiero recordarte lo increíble que eres, no solo porque es tu cumpleaños, sino porque cada día mereces saberlo. Deseo que este nuevo año en tu vida esté lleno de alegrías, sueños cumplidos y momentos que te hagan sonreír tanto como tú me haces sonreír a mí.
+
+                Gracias por ser mi compañera, mi mejor amiga y el amor de mi vida. Que este día esté lleno de amor, felicidad y todo lo hermoso que mereces.</p>
+            <div class="flor-interactiva" style="left: -80px; top: 200px;">🌺</div>
+            <div class="flor-interactiva" style="right: -80px; top: 400px;">🌼</div>
+
+            <p class="brote">Para mi, eres como una rosa:</p>
+            <ul class="brote">
+                <li>Una belleza sin igual</li>
+                <li>Un aroma dulce que deja huella</li>
+                <li>Una delicadeza como pétalos de rosa</li>
+                <li>Fuerte y capaz como las espinas que la protegen</li>
+                <li>Día a día creces y evolucionas a una forma cada vez más perfecta</li>
+            </ul>
+
+            <p class="brote">Feliz cumpleaños mi amor<br>
+            Con todo mi amor: Victor💖</p>
+        </div>
+
+        <div class="container">
+            <div class="glass">
+                <div class="shine"></div>
+            </div>
+            <div class="thorns">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="leaves">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="petals">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="deadPetals">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <h3>Navegación</h3>
+                <a href="index.html" class="footer-enlace">Inicio</a>
+                <a href="felicitaciones.html" class="footer-enlace">Felicitaciones</a>
+                <a href="carta.html" class="footer-enlace">Feliz Cumpleaños</a>
+                <a href="tickets.html" class="footer-enlace">Zona Tickets</a>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Contacto</h3>
+                <div class="redes-sociales">
+                    <a href="https://www.instagram.com/dann.ra_?igsh=MWhjZWNwOGJncGFqbg==" class="footer-enlace">📷 Instagram</a>
+                    <a href="https://www.facebook.com/dannwatters" class="footer-enlace">📘 Facebook</a>
+                </div>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Derechos</h3>
+                <p>© 2025 Feliz cumpleaños</p>
+                <p>Creado con amor por Victor ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Crear lluvia de flores
+        function crearLluviaFloral() {
+            const jardin = document.getElementById('jardin');
+            for(let i = 0; i < 30; i++) {
+                const flor = document.createElement('div');
+                flor.className = 'flor-animada';
+                flor.style.left = Math.random() * 100 + '%';
+                flor.style.animationDelay = Math.random() * 8 + 's';
+                flor.style.animationDuration = 5 + Math.random() * 10 + 's';
+                jardin.appendChild(flor);
+            }
+        }
+
+        // Efecto de brote al hacer scroll
+        const brotes = document.querySelectorAll('.brote');
+        window.addEventListener('scroll', () => {
+            brotes.forEach(elemento => {
+                const posicion = elemento.getBoundingClientRect().top;
+                if(posicion < window.innerHeight * 0.8) {
+                    elemento.classList.add('visible');
+                }
+            });
+        });
+
+        // Flores interactivas
+        document.querySelectorAll('.flor-interactiva').forEach(flor => {
+            flor.addEventListener('click', () => {
+                flor.style.transform = 'scale(1.5) rotate(720deg)';
+                setTimeout(() => {
+                    flor.style.transform = 'scale(1) rotate(0deg)';
+                }, 1000);
+            });
+        });
+
+        // Inicialización
+        window.addEventListener('DOMContentLoaded', () => {
+            crearLluviaFloral();
+            
+            // Animación inicial
+            setTimeout(() => {
+                document.querySelector('.pergamino').style.transform = 'rotate(0deg)';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

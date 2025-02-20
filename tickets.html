@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets de Amor 💖</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(45deg, #ff69b4, #d6336c);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Barra de Navegación (consistente con otras páginas) */
+        nav {
+            background: rgba(255,255,255,0.9);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-enlace {
+            color: #d6336c;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Encabezado */
+        .header-tickets {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .titulo-tickets {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Grid de Tickets */
+        .contenedor-tickets {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Diseño de Ticket */
+        .ticket {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            transform: rotate(-2deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .ticket:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .ticket:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .ticket-encabezado {
+            border-bottom: 3px dashed #ff69b4;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .ticket-titulo {
+            color: #d6336c;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .ticket-puntos {
+            background: #ff69b4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .ticket-icono {
+            font-size: 2.5rem;
+            color: #d6336c;
+            margin-bottom: 15px;
+        }
+
+        .ticket-descripcion {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn-canjeo {
+            background: #d6336c;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-canjeo:hover {
+            background: #ff69b4;
+            transform: scale(1.05);
+        }
+
+        /* Efecto de ticket rasgado */
+        .ticket::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            right: 10%;
+            height: 20px;
+            background: linear-gradient(45deg, transparent 10%, rgba(0,0,0,0.1) 50%, transparent 90%);
+            z-index: -1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contenedor-tickets {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .ticket {
+                transform: rotate(0deg) !important;
+            }
+        }
+
+        /* Añadir estos estilos adicionales */
+        .ticket-canjeado {
+            background: linear-gradient(45deg, #ff69b4, #d6336c);
+            color: white !important;
+        }
+        
+        .ticket-canjeado .ticket-titulo,
+        .ticket-canjeado .ticket-descripcion,
+        .ticket-canjeado .ticket-puntos {
+            color: white !important;
+        }
+        
+        .ticket-canjeado .ticket-icono {
+            color: white !important;
+        }
+
+        /* Modal de preguntas */
+        .modal-pregunta {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .pregunta-texto {
+            font-family: 'Pacifico', cursive;
+            color: #d6336c;
+            font-size: 1.3rem;
+            margin: 15px 0;
+        }
+
+        .input-respuesta {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ff69b4;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .btn-validar {
+            background: #d6336c;
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-validar:hover {
+            background: #ff69b4;
+        }
+
+        /* Footer */
+        footer {
+            background: #ff69b4;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-contenido {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-seccion h3 {
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 15px;
+        }
+
+        .footer-enlace {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-enlace:hover {
+            opacity: 0.8;
+        }
+
+        .redes-sociales {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav>
+        <div class="nav-contenedor">
+            <a href="index.html" class="nav-enlace">INICIO</a>
+            <a href="felicitaciones.html" class="nav-enlace">FELICITACIONES</a>
+            <a href="carta.html" class="nav-enlace">FELIZ CUMPLEAÑOS</a>
+            <a href="#tickets" class="nav-enlace">ZONA TICKETS</a>
+        </div>
+    </nav>
+
+    <!-- Encabezado -->
+    <header class="header-tickets">
+        <h1 class="titulo-tickets">Banco de Amor 💌</h1>
+        <p>¡Canjea tus tickets por experiencias únicas!</p>
+    </header>
+
+    <div class="contenedor-tickets">
+        <!-- Ticket 1 - Cita Romántica -->
+        <div class="ticket" data-codigo="CR7-LOVE" data-respuesta="gol de chilena">
+            <div class="ticket-encabezado">
+                <i class="fas fa-heart ticket-icono"></i>
+                <h2 class="ticket-titulo">Cena Romántica</h2>
+                <span class="ticket-puntos">★ 50 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">Cena romántica con los platillos que elijan (incluye postre obvi) ;D</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 2 - Picnic -->
+        <div class="ticket" data-codigo="DIRECTION-5" data-respuesta="zayn malik">
+            <div class="ticket-encabezado">
+                <i class="fas fa-heart ticket-icono"></i>
+                <h2 class="ticket-titulo">Picnic Romántico</h2>
+                <span class="ticket-puntos">★ 40 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">Día de campo con con temática de colores</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 3 - Escape Romántico -->
+        <div class="ticket" data-codigo="CRUZ-AZUL" data-respuesta="clásico joven">
+            <div class="ticket-encabezado">
+                <i class="fas fa-car ticket-icono"></i>
+                <h2 class="ticket-titulo">Escape Romántico</h2>
+                <span class="ticket-puntos">★ 80 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">Escapada a un destino secreto (o a definir si no te gusta jaja)</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 4 - Miches -->
+        <div class="ticket" data-codigo="ZAYN-MALIK" data-respuesta="pillowtalk">
+            <div class="ticket-encabezado">
+                <i class="fas fa-cocktail ticket-icono"></i>
+                <h2 class="ticket-titulo">Noche de Miches</h2>
+                <span class="ticket-puntos">★ 35 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">Degustación de alta gama en las miches de tu preferencia (que yo tome dependerá lo rico del alcohol jaja)</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 5 - Cine -->
+        <div class="ticket" data-codigo="HONEY-PAW" data-respuesta="1964, Estadio 10 de Diciembre">
+            <div class="ticket-encabezado">
+                <i class="fas fa-film ticket-icono"></i>
+                <h2 class="ticket-titulo">Noche de Cine</h2>
+                <span class="ticket-puntos">★ 30 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">Películas + palomitas + manta compartida</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 6 - Viaje -->
+        <div class="ticket" data-codigo="GOLDEN-18K" data-respuesta="reloj">
+            <div class="ticket-encabezado">
+                <i class="fas fa-map-marked ticket-icono"></i>
+                <h2 class="ticket-titulo">Elige un Destino</h2>
+                <span class="ticket-puntos">★ 100 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">¡Tú eliges el lugar y preparamos el plan para una nueva aventura juntos!</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 7 - Juegos -->
+        <div class="ticket" data-codigo="PIZZA-TIME" data-respuesta="lasaña">
+            <div class="ticket-encabezado">
+                <i class="fas fa-dice ticket-icono"></i>
+                <h2 class="ticket-titulo">Noche de Juegos</h2>
+                <span class="ticket-puntos">★ 25 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">Juegos de mesa + retos divertidos + premios</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+
+        <!-- Ticket 8 - Ropa -->
+        <div class="ticket" data-codigo="REAL-FAN" data-respuesta="9">
+            <div class="ticket-encabezado">
+                <i class="fas fa-tshirt ticket-icono"></i>
+                <h2 class="ticket-titulo">Outfit Especial</h2>
+                <span class="ticket-puntos">★ 60 Puntos</span>
+            </div>
+            <p class="ticket-descripcion">¡Elige una prenda de tu agrado!</p>
+            <button class="btn-canjeo">Canjear Ticket 🎫</button>
+        </div>
+    </div>
+    <!-- Modal de Pregunta -->
+    <div id="modalPregunta" class="modal-pregunta">
+        <div class="pregunta-texto" id="textoPregunta"></div>
+        <input type="text" class="input-respuesta" id="inputRespuesta" placeholder="Tu respuesta...">
+        <button class="btn-validar" onclick="validarRespuesta()">Validar 🔍</button>
+    </div>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <h3>Navegación</h3>
+                <a href="index.html" class="footer-enlace">Inicio</a>
+                <a href="felicitaciones.html" class="footer-enlace">Felicitaciones</a>
+                <a href="carta.html" class="footer-enlace">Feliz Cumpleaños</a>
+                <a href="tickets.html" class="footer-enlace">Zona Tickets</a>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Contacto</h3>
+                <div class="redes-sociales">
+                    <a href="https://www.instagram.com/dann.ra_?igsh=MWhjZWNwOGJncGFqbg==" class="footer-enlace">📷 Instagram</a>
+                    <a href="https://www.facebook.com/dannwatters" class="footer-enlace">📘 Facebook</a>
+                </div>
+            </div>
+            
+            <div class="footer-seccion">
+                <h3>Derechos</h3>
+                <p>© 2025 Feliz cumpleaños</p>
+                <p>Creado con amor por Victor ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+const preguntas = {
+            "CR7-LOVE": "¿Cómo se llama el gol más famoso de CR7 en Champions?",
+            "DIRECTION-5": "¿Qué miembro de 1D tiene tatuaje de un pájaro?",
+            "CRUZ-AZUL": "¿Cómo se llama el clásico del Cruz Azul vs América?",
+            "ZAYN-MALIK": "¿Cuál es el primer éxito en solitario de Zayn?",
+            "HONEY-PAW": "Cruz Azul es uno de los equipos más emblemáticos de México, pero antes de llegar a la Primera División, ¿en qué año y en qué estadio jugó su primer partido oficial en esta categoría? (Separado por coma)",
+            "GOLDEN-18K": "Dicen que el tiempo es oro y tienes muchos que hacen alegoría a ello:",
+            "PIZZA-TIME": "Plato italiano que amas que te prepare ;)",
+            "REAL-FAN": "¿Cuántos Champions ganó CR7 con el Real Madrid?"
+        };
+
+        let ticketActual = null;
+
+        document.querySelectorAll('.btn-canjeo').forEach(boton => {
+            boton.addEventListener('click', function() {
+                ticketActual = this.closest('.ticket');
+                const codigo = ticketActual.dataset.codigo;
+                document.getElementById('textoPregunta').textContent = preguntas[codigo];
+                document.getElementById('modalPregunta').style.display = 'block';
+            });
+        });
+
+        function validarRespuesta() {
+            const respuestaUsuario = document.getElementById('inputRespuesta').value.toLowerCase();
+            const respuestaCorrecta = ticketActual.dataset.respuesta.toLowerCase();
+            
+            if(respuestaUsuario === respuestaCorrecta) {
+                document.getElementById('modalPregunta').style.display = 'none';
+                html2canvas(ticketActual).then(canvas => {
+                    const enlace = document.createElement('a');
+                    enlace.download = `Ticket-${ticketActual.dataset.codigo}.png`;
+                    enlace.href = canvas.toDataURL();
+                    enlace.click();
+                });
+                alert("✅ ¡Respuesta correcta! Descargando tu ticket...");
+            } else {
+                alert("❌ Respuesta incorrecta, prueba de nuevo");
+                document.getElementById('inputRespuesta').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
